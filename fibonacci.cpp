@@ -28,6 +28,3 @@ int main() {
 		cout << endl;
 	}
 }
-
-
-
