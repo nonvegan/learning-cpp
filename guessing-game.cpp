@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int main()
+int main() 
 {
 	srand(time(NULL));
 	int option;
@@ -51,7 +51,6 @@ int main()
 			fileOutput.close();
 		}
 	} while (option != 9);
-
 }
 
 
