@@ -4,40 +4,61 @@
 
 
 class Vector2d {
-	double x;
-	double y;
+	int x;
+	int y;
 
 public:
-	Vector2d(double x, double y) {
+	static int nInstanciatedObjects;
+	Vector2d(int x, int y) {
 		this->x = x;
 		this->y = y;
+		nInstanciatedObjects++;
 	}
 	~Vector2d() {
 		std::cout << "The object " << toString() << " has been destructed.\n";
+		nInstanciatedObjects--;
 	}
-	double getX() {
+	int getX() {
 		return x;
 	}
-	double getY() {
+	int getY() {
 		return y;
 	}
 	void add(Vector2d& vec) {
 		x += vec.x;
 		y += vec.y;
 	}
+
+	void operator += (Vector2d& vec) {
+		this->x += vec.x;
+		this->y += vec.y;
+	}
+
+	Vector2d operator + (Vector2d& vec) {
+		Vector2d newVec(x + vec.x, y + vec.y);
+		return newVec;
+	}
+
+	bool operator == (Vector2d& vec) {
+		return x == vec.x && y == vec.y;
+	}
+
 	std::string toString() {
 		return '(' + std::to_string(x) + ',' + std::to_string(y) + ')';
 	}
 };
 
+int Vector2d::nInstanciatedObjects = 0;
 int main() {
 	Vector2d pos(20, -10);
-	Vector2d vel(2.5, 3.2);
-
+	Vector2d vel(2, 3);
 	std::cout << "Initial Position ----------> P" << pos.toString() << std::endl;
 	std::cout << "Initial Velocity ----------> V" << vel.toString() << std::endl;
 	for (int i = 0; i < 10; i++) {
-		pos.add(vel);
+		pos += vel;
 	}
 	std::cout << "Position after 10 updates -> P" << pos.toString() << std::endl;
+	Vector2d testPos(40, 20);
+	pos == testPos ? (std::cout << "These positions match!" << std::endl) : (std::cout << "These positions don't match!" << std::endl);
+	std::cout << "Number of instanciated objects ---> " << Vector2d::nInstanciatedObjects << std::endl;
 }
