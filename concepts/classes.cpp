@@ -49,10 +49,16 @@ public:
 };
 
 int Vector2d::nInstanciatedObjects = 0;
+
+std::ostream& operator << (std::ostream& output, Vector2d& vec) {
+	output << '(' << vec.getX() << ',' << vec.getY() << ')';
+	return output;
+}
+
 int main() {
 	Vector2d pos(20, -10);
 	Vector2d vel(2, 3);
-	std::cout << "Initial Position ----------> P" << pos.toString() << std::endl;
+	std::cout << "Initial Position ----------> P" << pos << std::endl;
 	std::cout << "Initial Velocity ----------> V" << vel.toString() << std::endl;
 	for (int i = 0; i < 10; i++) {
 		pos += vel;
